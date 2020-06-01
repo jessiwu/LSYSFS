@@ -6,4 +6,4 @@ build: $(FILESYSTEM_FILES)
 	echo 'To Mount: ./lsysfs -f [mount point]'
 
 clean:
-	rm ssfs
+	rm lsysfs
