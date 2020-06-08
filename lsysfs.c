@@ -151,26 +151,9 @@ int remove_file( const char* path )
 				}
 			}
 
-
-			// int found_file = 0;
-			// for ( int curr_idx = 0; curr_idx <= curr_file_idx; curr_idx++ ) {
-			// 	if ( strcmp( path, files_list[ curr_idx ] ) == 0 ) {
-			// 		found_file = 1;
-			// 		memset(files_list[ curr_idx ], '\0', sizeof(files_list[ curr_idx ]));
-			// 		memset(files_content[ curr_idx ], '\0', sizeof(files_content[ curr_idx ]));
-			// 	}
-			// 	else {
-			// 		if( found_file ) {
-			// 			strcpy( files_list[ curr_idx -1 ], files_list[ curr_idx ] ); 
-			// 			strcpy( files_content[ curr_idx -1 ],  files_content[ curr_idx ]);
-			// 		}					
-			// 	}
-			// }
-
 			curr_file_idx--;
 			curr_file_content_idx--;
-			// found_file = 0;
-
+			
 			return 0; // delete file successfully
 		}
 	}
