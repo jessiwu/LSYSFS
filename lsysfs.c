@@ -321,9 +321,42 @@ static int do_rmdir(const char * path)
 	return res;
 }
 
-static int do_utimens(const char * path, const struct timespec tv[2], struct fuse_file_info *fi)
+static int do_utimens(const char * path, const struct timespec tv[2])//, struct fuse_file_info *fi)
 {
-	return 0;
+	if( is_dir(path) ){
+		int dir_idx = get_dir_index( path );
+
+		if( dir_idx == -1 )
+			return -ENOENT;
+		else{
+			struct timespec current_time;
+
+			clock_gettime(CLOCK_REALTIME, &current_time);
+			dir_atime_list[dir_idx] = current_time;
+			dir_mtime_list[dir_idx] = current_time;
+			dir_ctime_list[dir_idx] = current_time;
+
+			return 0;
+		}
+	}
+	else if( is_file(path) ) {
+		int file_idx = get_file_index( path );
+
+		if( file_idx == -1 )
+			return -ENOENT;
+		else{
+			struct timespec current_time;
+
+			clock_gettime(CLOCK_REALTIME, &current_time);
+			file_atime_list[file_idx] = current_time;
+			file_mtime_list[file_idx] = current_time;
+			file_ctime_list[file_idx] = current_time;
+			
+			return 0;
+		}
+	}
+	else
+		return -1;	
 }
 
 static int do_create(const char * path, mode_t mode, struct fuse_file_info * fi)
